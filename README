@@ -1,0 +1,198 @@
+////////////////////////////////////////////////////////////////////////
+
+• Stavăr Laurențiu-Cristian - 312CC
+• Programarea calculatoarelor și limbaje de programare 1 - Tema 1
+
+• Această temă constă în 4 probleme, în următoarea ordine :
+        1. Problema cutiilor -> cutii.c
+        2. Numere complexe lungi -> lungi.c
+        3. Transmisie bruiată -> codificari.c
+        4. Car dealer -> masini.c
+
+• cutii.c :
+
+! Implementarea unui joc de gestiune a prizonierilor unei închisori !
+
+-> Durată implementare : 2h;
+
+-> main() : 
+        - Se citesc datele problemei (numărul de prizonieri, cutiile cu
+        conținutul acestora);
+        - Se apelează funcțiile jocBox și cautareCicluri;
+        - Se afișează ciclurile ce sunt reținute într-o matrice în urma
+        apelării cautareCicluri;
+
+-> jocBox() :
+        - Se parcurge vectorul de cutii până când este găsit numărul
+        prizonierului în cutie (prizonierul căștigă jocul) sau până
+        când sunt deschise numărul prizonierilor / 2 cutii (prizonierul
+        pierde jocul);
+        - Funcția nu returnează nimic, dar modifică valoarea unei
+        variabile contor, transmisă drept paramentru, ce indică dacă
+        prizonierul a câștigat sau nu;
+        
+-> cautareCicluri() :
+        - Parcurge vectorul de cutii și pune într-o matrice primită
+        drept parametru ciclurile găsite;
+        - Algoritmul de găsire a ciclurilor va strica vectorul de cutii;
+
+• lungi.c :
+
+! Calculator de numere complexe ce pot depășii lungimea lui long long !
+
+-> Durată implementare : 4-5h;
+
+-> main() :
+        - Se citesc datele de intrare (lungimea numărului complex,
+        primul număr, operația, al doilea număr);
+        - În funcție de operator se apelează funcția corespuncatoare
+        (scădere sau adunare) atât pentru partea reala cât și pentru
+        partea imaginară a numerelor;
+        - Rezultatul operației este reținut în primul număr, iar la
+        finalul operațiilor acesta este afișat;
+        - De la a doua citire programul așteaptă drept input doar
+        operația următoare și al doilea număr (primul număr rămâne
+        rezultatul operației anterioare);
+        - Programul rulează până la întâlnirea operatorului 0;
+
+-> scadere() :
+        - Transformă scăderile în adunări în felul următor :
+                1) a - b = a + -b
+                2) -a - b = -a + -b
+                3) a - -b = a + b
+                4) -a - -b = -a + b
+
+-> adunare() :
+        - Face adunarea bit cu bit a numerelor date ca argument;
+        - Reduce cele 4 cazuri de adunare la 2 cazuri semnificative :
+                a) -a + b sau a + -b
+                b)  a + b sau -a + -b
+
+        Cazul a:
+        - Se scade din numărul mai mare cel mai mic (amândouă
+        considerandu-se pozitive);
+        - Rezultatul ia semnul numărului mai mare;
+        - Pe parcursul scăderilor bit cu bit, dacă o astfel de scădere
+        are rezultat negativ (ex 5 - 7 = -2), rezultatul de pe acel bit
+        este 10 + nr (ex 10 + -2 = 8) și se pornește o căutare pentru a
+        se efectua "împrumutul". Căutarea are sensul spre stânga,
+        începând de la următorul bit. Dacă este găsit bitul '0' acesta
+        este transformat în '9', iar căutarea continuă. Dacă este
+        întâlnit orice alt bit acesta este decrementat iar căutarea se
+        încheie;
+ 
+        Cazul b :
+        - Dacă se adună două numere pozitive semnul rezultatului este
+        pozitiv, dacă se adună două negative semnul rezultatului este
+        negativ;
+        - Adună numerele bit cu bit ținând cont de ce "rămâne în
+        minte". Acest rest este luat în considerare la următoarea
+        adunare;
+
+-> mySwap() :
+        - Funcție ce interschimba două stringuri;
+
+• codificari.c :
+
+-> Durată implementare : 14-16h;
+
+! Program ce codifica / decodifica in doua moduri un mesaj !
+
+-> main() :
+        - Se citesc datele de intrare (mesajul ce trebuie codificat,
+        tipul codificării, cheia pentru codificare);
+        - De la a doua citire, mesajul ce trebuie codificat va fi
+        considerat chiar codificarea anterior afișată;
+        - În funcție de tipul de codificare selectat se va apela
+        funcția aferentă;
+        - Se vor face citiri până la întâlnirea mesajului STOP;
+
+-> codificareA() :
+        - Această codificare primește drept cheie un text;
+        - Funcția construiește o matrice de codificare, iar mai apoi
+        pune în stringul ce conține mesajul inițial caracterele din
+        matrice, schimbând ordinea coloanelor. Această ordine este dată
+        de ordinea de sortare a cheii.
+
+-> codificareB() :
+        - Această codificare primește drept cheie un întreg;
+        - Funcția realizează n permutări la dreapta ale mesajul ce
+        trebuie codificat. Numărul n este dat de întregul oferit drept
+        cheie;
+        - Pe parcursul permutărilor, elementele ce sunt duse de la
+        sfârșitul mesajul la începutul acestuia sunt crescute cu n
+        litere în raza alfabetului, excepție fac spațiile;
+
+-> decodificareA() :
+        - Această codificare primește drept cheie un text;
+        - Inversează procesul efectuat în codificareA();
+
+-> decodificareB() :
+        - Această codificare primește drept cheie un întreg;
+        - Inversează procesul efectuat în codificareB();
+
+• masini.c :
+
+-> Durată implementare : 4h;
+
+! Program ce organizează eficient mașinile și consumul acestora !
+
+-> main() :
+        - Se alocă dinamic un vector de mașini;
+        - Se citesc n seturi de date ce definesc o mașină (brand,
+        număr, combustibil, consum, km);
+        - Se citește tipul de operație ce trebuie efectuata:
+                a = statistică a numărului de mașini de fiecare tip
+                (după combustibil)
+                b = afișarea consumului total de combustibil și a sumei
+                totale plătită de dealership pentru numărul de
+                kilometri rulați de fiecare marcă de mașină din cele
+                existente în stoc
+                c = verificarea corectitudinii numerelor de
+                înmatriculare ale mașinilor
+        - În cazul oricărei operații afișarea rezultatului este făcută
+        în main
+
+-> statComb() :
+        - Funcție aferentă cerinței a;
+        - Funcția primește ca argumente 3 contori pentru conbustibili;
+        - Parcurge vectorul de mașini iar pentru fiecare crește
+        contorul de combustibil aferent;
+        - Funcția nu primește contor pentru mașinile cu combustibil
+        hibrid, când întâlnește o astfel de mașină nu incrementeaza
+        nimic. În main, numărul de mașini hibride este dat de diferența
+        dintre numărul total de mașini și contoarele fiecărui tip de
+        combustibil rămas;
+
+-> statConsum() :
+        - Funcție aferentă cerinței b;
+        - Funcția primește drept argumente doi vectori în care pune
+        consumul și prețul plătit pentru fiecare brand; 
+        - Parcurge vectorul de mașini, iar la întâlnirea unui brand pe
+        care nu l-a mai întâlnit până acum adaugă consumul sau în
+        elementul corespunzător din vectorul de consum, prețul în
+        elementul corespunzător din vectorul de preț și continua
+        căutarea în restul vectorului de mașini a elementelor cu
+        același brand;
+        - Pe parcursul căutării la întâlnirea unei noi mașini dintr-un
+        brand deja găsit acesta vă fi stricat pentru a facilita
+        afișarea din main;
+
+-> numCorect() :
+        - Funcție aferentă cerinței c;
+        - Verifică dacă numărul de înmatriculare al mașinii oferite
+        drept argument este corect;
+        - Fragmentează numărul de înmatriculare în 3 părți;
+        - Prima parte conține orașul (trebuie să conțină doar litere și
+        să aibă lungimea 1 sau 2);
+        - A doua parte conține un set de două sau trei numere;
+        - A treia parte conține un set de trei litere;
+        - Verifică daca prin acestea a acoperit întregul număr, dacă nu
+        acesta nu este corect;
+        - Verifică lungimea acestor părti, dacă una nu este corectă
+        înseamnă că numărul este greșit;
+        - Verifică conținutul acestor părți, dacă unul nu este corect
+        înseamnă că numărul este greșit;
+        - Dacă trece toate aceste teste numărul este corect;
+
+////////////////////////////////////////////////////////////////////////
